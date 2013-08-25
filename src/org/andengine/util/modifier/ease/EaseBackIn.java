@@ -9,6 +9,7 @@ package org.andengine.util.modifier.ease;
  * @since 16:52:11 - 26.07.2010
  */
 public class EaseBackIn implements IEaseFunction {
+	
 	// ===========================================================
 	// Constants
 	// ===========================================================
