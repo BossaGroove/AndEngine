@@ -21,6 +21,8 @@ public class EaseBackIn implements IEaseFunction {
 
 	private static EaseBackIn INSTANCE;
 
+	private float mOvershootValue = OVERSHOOT_CONSTANT;
+
 	// ===========================================================
 	// Constructors
 	// ===========================================================
@@ -29,11 +31,23 @@ public class EaseBackIn implements IEaseFunction {
 
 	}
 
+	public static EaseBackIn getInstance(float pOverShootValue) {
+		if (INSTANCE == null) {
+			INSTANCE = new EaseBackIn();
+		}
+		INSTANCE.mOvershootValue = pOverShootValue;
+		return INSTANCE;
+	}
+
 	public static EaseBackIn getInstance() {
-		if (null == INSTANCE) {
+		if (INSTANCE == null) {
 			INSTANCE = new EaseBackIn();
 		}
 		return INSTANCE;
+	}
+
+	public float getOverShootValue() {
+		return this.mOvershootValue;
 	}
 
 	// ===========================================================
@@ -54,7 +68,7 @@ public class EaseBackIn implements IEaseFunction {
 	// ===========================================================
 
 	public static float getValue(final float pPercentage) {
-		return pPercentage * pPercentage * ((OVERSHOOT_CONSTANT + 1) * pPercentage - OVERSHOOT_CONSTANT);
+		return pPercentage * pPercentage * ((EaseBackIn.getInstance().getOverShootValue() + 1) * pPercentage - EaseBackIn.getInstance().getOverShootValue());
 	}
 
 	// ===========================================================

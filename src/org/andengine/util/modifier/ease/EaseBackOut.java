@@ -13,11 +13,15 @@ public class EaseBackOut implements IEaseFunction {
 	// Constants
 	// ===========================================================
 
+	private static final float OVERSHOOT_CONSTANT = 1.70158f;
+
 	// ===========================================================
 	// Fields
 	// ===========================================================
 
 	private static EaseBackOut INSTANCE;
+
+	private float mOvershootValue = OVERSHOOT_CONSTANT;
 
 	// ===========================================================
 	// Constructors
@@ -27,11 +31,23 @@ public class EaseBackOut implements IEaseFunction {
 
 	}
 
+	public static EaseBackOut getInstance(float pOverShootValue) {
+		if (INSTANCE == null) {
+			INSTANCE = new EaseBackOut();
+		}
+		INSTANCE.mOvershootValue = pOverShootValue;
+		return INSTANCE;
+	}
+
 	public static EaseBackOut getInstance() {
 		if (INSTANCE == null) {
 			INSTANCE = new EaseBackOut();
 		}
 		return INSTANCE;
+	}
+
+	public float getOverShootValue() {
+		return this.mOvershootValue;
 	}
 
 	// ===========================================================
@@ -53,7 +69,7 @@ public class EaseBackOut implements IEaseFunction {
 
 	public static float getValue(final float pPercentage) {
 		final float t = pPercentage - 1;
-		return 1 + t * t * ((1.70158f + 1) * t + 1.70158f);
+		return 1 + t * t * ((EaseBackOut.getInstance().getOverShootValue() + 1) * t + EaseBackOut.getInstance().getOverShootValue());
 	}
 
 	// ===========================================================
